@@ -1,0 +1,302 @@
+:root {
+  /* EaseMotion Design Tokens (Glassmorphism Theme) */
+  --em-color-bg: #0f111a;
+  --em-color-text: #ffffff;
+  --em-color-text-muted: rgba(255, 255, 255, 0.6);
+  --em-color-danger: #ff5c5c;
+  
+  /* Glass Tokens */
+  --em-glass-bg: rgba(255, 255, 255, 0.05);
+  --em-glass-bg-hover: rgba(255, 255, 255, 0.1);
+  --em-glass-bg-active: rgba(255, 255, 255, 0.15);
+  --em-glass-border: rgba(255, 255, 255, 0.1);
+  --em-glass-border-light: rgba(255, 255, 255, 0.2);
+  --em-glass-blur: blur(16px);
+  --em-glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  
+  /* Animation Tokens */
+  --em-ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --em-duration-base: 300ms;
+  --em-duration-fast: 150ms;
+  
+  /* Layout */
+  --em-flyout-width: 260px;
+  --em-z-overlay: 100;
+  --em-z-flyout: 110;
+}
+
+/* Base Resets & Decorative Background */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--em-color-bg);
+  color: var(--em-color-text);
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Ambient Background Orbs to show Glass effect */
+.em-bg-shape {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.5;
+}
+.em-bg-shape-1 {
+  width: 400px; height: 400px;
+  background: #7928ca;
+  top: -100px; left: -100px;
+}
+.em-bg-shape-2 {
+  width: 300px; height: 300px;
+  background: #ff0080;
+  bottom: 10%; right: 5%;
+}
+.em-bg-shape-3 {
+  width: 250px; height: 250px;
+  background: #00d2ff;
+  top: 40%; left: 30%;
+}
+
+.em-container {
+  padding: 4rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.em-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.em-subtitle {
+  color: var(--em-color-text-muted);
+  margin-bottom: 3rem;
+}
+
+/* ==========================================================================
+   Glassmorphism Flyout Popover Implementation
+   ========================================================================== */
+
+/* 1. Structural Wrapper */
+.em-flyout-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* 2. Hidden State Checkbox */
+.em-flyout-toggle {
+  display: none;
+}
+
+/* 3. Glass Trigger Button */
+.em-btn-glass {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--em-glass-bg);
+  backdrop-filter: var(--em-glass-blur);
+  -webkit-backdrop-filter: var(--em-glass-blur);
+  border: 1px solid var(--em-glass-border);
+  color: var(--em-color-text);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  user-select: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background var(--em-duration-fast) var(--em-ease-standard),
+              border-color var(--em-duration-fast) var(--em-ease-standard),
+              box-shadow var(--em-duration-fast) var(--em-ease-standard);
+}
+
+.em-btn-glass:hover {
+  background: var(--em-glass-bg-hover);
+  border-color: var(--em-glass-border-light);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.em-btn-glass:focus-visible {
+  outline: none;
+  border-color: #fff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.em-chevron {
+  transition: transform var(--em-duration-fast) var(--em-ease-standard);
+}
+
+/* 4. Click-away Overlay */
+.em-flyout-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--em-z-overlay);
+  background: transparent;
+  display: none;
+  cursor: default;
+}
+
+/* 5. Glass Popover Container */
+.em-flyout-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: var(--em-flyout-width);
+  background: var(--em-glass-bg);
+  backdrop-filter: var(--em-glass-blur);
+  -webkit-backdrop-filter: var(--em-glass-blur);
+  border: 1px solid var(--em-glass-border);
+  border-radius: 16px;
+  box-shadow: var(--em-glass-shadow);
+  z-index: var(--em-z-flyout);
+  overflow: hidden;
+  
+  /* Initial Animation State */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transform-origin: top left;
+  transition: opacity var(--em-duration-base) var(--em-ease-standard),
+              transform var(--em-duration-base) var(--em-ease-standard),
+              visibility var(--em-duration-base) var(--em-ease-standard);
+}
+
+/* Popover Content */
+.em-flyout-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--em-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.em-flyout-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--em-color-text-muted);
+}
+
+.em-menu-list {
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+}
+
+.em-menu-item {
+  margin: 2px 0;
+}
+
+.em-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.75rem 1rem;
+  color: var(--em-color-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px;
+  margin: 0 0.5rem;
+  transition: background var(--em-duration-fast) var(--em-ease-standard),
+              color var(--em-duration-fast) var(--em-ease-standard);
+}
+
+.em-menu-link:hover {
+  background: var(--em-glass-bg-active);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.em-menu-link:focus-visible {
+  outline: none;
+  background: var(--em-glass-bg-active);
+  box-shadow: inset 0 0 0 1px var(--em-glass-border-light);
+}
+
+.em-flyout-footer {
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--em-glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.em-link-danger {
+  color: var(--em-color-danger);
+}
+
+.em-link-danger:hover {
+  background: rgba(255, 92, 92, 0.15);
+  text-shadow: 0 0 8px rgba(255, 92, 92, 0.4);
+}
+
+/* 6. Active States (Toggled by Checkbox) */
+.em-flyout-toggle:checked ~ .em-flyout-overlay {
+  display: block;
+}
+
+.em-flyout-toggle:checked ~ .em-btn-glass {
+  background: var(--em-glass-bg-active);
+  border-color: var(--em-glass-border-light);
+}
+
+.em-flyout-toggle:checked ~ .em-btn-glass .em-chevron {
+  transform: rotate(180deg);
+}
+
+.em-flyout-toggle:checked ~ .em-flyout-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* 7. Responsive: Center Floating Modal on Mobile */
+@media (max-width: 600px) {
+  .em-flyout-wrapper {
+    position: static; 
+  }
+
+  .em-flyout-menu {
+    position: fixed;
+    top: auto;
+    bottom: 2rem;
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    transform: translateY(20px) scale(0.95);
+    transform-origin: bottom center;
+  }
+
+  .em-flyout-toggle:checked ~ .em-flyout-overlay {
+    background-color: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    animation: em-fade-in var(--em-duration-base) var(--em-ease-standard);
+  }
+
+  .em-flyout-toggle:checked ~ .em-flyout-menu {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes em-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 8. Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .em-btn-glass,
+  .em-flyout-menu,
+  .em-chevron,
+  .em-menu-link {
+    transition: none !important;
+  }
+  
+  .em-flyout-toggle:checked ~ .em-flyout-overlay {
+    animation: none !important;
+  }
+}
