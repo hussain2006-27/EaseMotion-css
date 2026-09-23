@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EaseMotion - Glassmorphism Flyout Popover</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Decorative background to showcase the frosted glass effect -->
+  <div class="em-bg-shape em-bg-shape-1"></div>
+  <div class="em-bg-shape em-bg-shape-2"></div>
+  <div class="em-bg-shape em-bg-shape-3"></div>
+
+  <main class="em-container">
+    <header class="em-header">
+      <h1 class="em-title">Glassmorphism Flyout</h1>
+      <p class="em-subtitle">Frosted glass aesthetic. Pure CSS state management.</p>
+    </header>
+
+    <!-- Flyout Popover Component -->
+    <div class="em-flyout-wrapper">
+      <!-- Pure CSS State Manager (Hidden Checkbox) -->
+      <input type="checkbox" id="glass-flyout-toggle" class="em-flyout-toggle" aria-hidden="true" />
+      
+      <!-- Invisible Click-away Overlay -->
+      <label for="glass-flyout-toggle" class="em-flyout-overlay" aria-label="Close menu" tabindex="-1"></label>
+
+      <!-- Trigger Button -->
+      <label for="glass-flyout-toggle" class="em-btn-glass" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false">
+        <span>Options</span>
+        <svg class="em-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </label>
+
+      <!-- Flyout / Popover Menu -->
+      <div class="em-flyout-menu" role="menu">
+        <div class="em-flyout-header">
+          <div class="em-flyout-title">Quick Actions</div>
+        </div>
+        
+        <ul class="em-menu-list">
+          <li class="em-menu-item">
+            <a href="#" class="em-menu-link" role="menuitem">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+              Edit Properties
+            </a>
+          </li>
+          <li class="em-menu-item">
+            <a href="#" class="em-menu-link" role="menuitem">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+              Add Widget
+            </a>
+          </li>
+          <li class="em-menu-item">
+            <a href="#" class="em-menu-link" role="menuitem">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              Preferences
+            </a>
+          </li>
+        </ul>
+        
+        <div class="em-flyout-footer">
+          <a href="#" class="em-menu-link em-link-danger" role="menuitem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Delete Workspace
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
